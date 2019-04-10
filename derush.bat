@@ -1,8 +1,10 @@
 REM Script permettant la copie et le renommage des fichiers facilement.
-REM Nécessite le logiciel "advanced renamer" et le fichier de configuration disponible sur le drive
-REM ##################################### REM INCREMENTER CE NUMERO A CHAQUE FOIS !
+REM Nécessite le logiciel "advanced renamer"
 
-SET numero=00
+REM #####################################
+REM INCREMENTER CE NUMERO A CHAQUE FOIS !
+
+SET numero=001
 
 
 REM #####################################
@@ -15,13 +17,13 @@ SET disk_backup=D:\backup
 
 REM ##################################### 
 REM #####################################
-REM test pour être sur que l'on a incrémenté
+REM test pour être sur que l'on a incrémenté, sinon bye
 
 IF EXIST %disk_derush%\%numero%
 EXIT REM #####################################
 
 
-REM création des dossiers nécessaires
+REM création des dossiers nécessaires correspondants au numéro du dessus
 
 mkdir %disk_derush%\%numero%
 SET destination=%disk_derush%\%numero%
@@ -33,7 +35,7 @@ REM copie dans un dossier temporaire
 robocopy %CD% %destination%\old . /S
 
 
-REM on remonte tout les fichiers qui nous intéresse
+REM on remonte tous les fichiers qui nous intéressent
 
 for /R %destination% %%f in (*.mp4) do move %%f %destination%
 for /R %destination% %%f in (*.mov) do move %%f %destination%
@@ -57,6 +59,7 @@ robocopy %destination% %disk_backup%\%numero% . /S
 
 
 REM Renommage des fichiers selon le nom du dossier parent
+REM Utilisation du logiciel Advanced Renamer
 
 SET PATH=%PATH%;C:\Program Files (x86)\Advanced Renamer
 arenc -e "C:\Program Files (x86)\Advanced Renamer\BatchMethods\if_rename.aren" -p %destination%

@@ -31,7 +31,7 @@ mkdir %destination%\old
 
 REM copie dans un dossier temporaire
 
-robocopy %CD% %destination%\old . /S
+robocopy %CD% %destination%\old * /s
 
 
 REM on remonte tous les fichiers qui nous intéressent
@@ -46,7 +46,6 @@ for /R %destination% %%f in (*.raf) do move %%f %destination%
 for /R %destination% %%f in (*.jpg) do move %%f %destination%
 for /R %destination% %%f in (*.rw2) do move %%f %destination%
 
-
 REM on supprime tout le reste
 
 rmdir /S /Q %destination%\old
@@ -54,7 +53,7 @@ rmdir /S /Q %destination%\old
 
 REM Copie de sauvegarde avec les noms originaux
 
-robocopy %destination% %disk_backup%\%numero% . /S
+robocopy %destination% %disk_backup%\%numero% * /S
 
 
 REM Renommage des fichiers selon le nom du dossier parent

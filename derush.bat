@@ -11,16 +11,15 @@ REM #####################################
 REM #####################################
 REM Localisation des disques
 
-SET disk_derush=D:\
-SET disk_backup=D:\backup
+SET disk_derush=F:\
+SET disk_backup=F:\backup
 
 
-REM ##################################### 
+REM #####################################
 REM #####################################
 REM test pour être sur que l'on a incrémenté, sinon bye
 
-IF EXIST %disk_derush%\%numero%
-EXIT REM #####################################
+IF EXIST %disk_derush%\%numero% GOTO :oef
 
 
 REM création des dossiers nécessaires correspondants au numéro du dessus

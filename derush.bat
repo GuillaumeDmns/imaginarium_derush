@@ -1,5 +1,5 @@
 REM Script permettant la copie et le renommage des fichiers facilement.
-REM Nécessite le logiciel "advanced renamer"
+REM Nécessite le logiciel "Advanced Renamer"
 
 REM #####################################
 REM LIGNE CI DESSOUS A NE SURTOUT PAS MODIFIER
@@ -58,12 +58,12 @@ SET disk_backup=F:\backup
 
 REM #####################################
 REM #####################################
-REM test pour être sur que l'on a incrémenté, sinon bye
+REM test pour être sur que l'on a pas déjà derush la carte SD
 
 IF EXIST %disk_derush%\%jour%\%nom%\%heure% GOTO :oef
 
 
-REM création des dossiers nécessaires correspondants au numéro du dessus
+REM création des dossiers nécessaires correspondants au jour/nom/heure ci-dessus
 
 mkdir %disk_derush%\%jour%\%nom%\%heure%
 SET destination=%disk_derush%\%jour%\%nom%\%heure%
@@ -77,16 +77,7 @@ robocopy %CD% %destination%\old * /s
 
 REM on remonte tous les fichiers qui nous intéressent
 
-for /R %destination% %%f in (*.mp4) do move %%f %destination%
-for /R %destination% %%f in (*.mov) do move %%f %destination%
-for /R %destination% %%f in (*.mts) do move %%f %destination%
-for /R %destination% %%f in (*.mp3) do move %%f %destination%
-for /R %destination% %%f in (*.aac) do move %%f %destination%
-for /R %destination% %%f in (*.wav) do move %%f %destination%
-for /R %destination% %%f in (*.raf) do move %%f %destination%
-for /R %destination% %%f in (*.jpg) do move %%f %destination%
-for /R %destination% %%f in (*.rw2) do move %%f %destination%
-for /R %destination% %%f in (*.mxf) do move %%f %destination%
+for /R %destination% %%f in (*.mp4 *.mov *.mts *.mp3 *.aac *.wav *.raf *.jpg *.rw2 *.mxf) do move %%f %destination%
 
 ECHO %destination%
 REM on supprime tout le reste
@@ -94,7 +85,7 @@ REM on supprime tout le reste
 rmdir /S /Q %destination%\old
 
 
-REM Copie de sauvegarde avec les noms originaux
+REM Copie de sauvegarde sur le disque de backup
 
 robocopy %destination% %disk_backup%\%jour%\%nom%\%heure% * /S
 

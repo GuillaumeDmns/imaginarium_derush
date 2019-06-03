@@ -2,9 +2,11 @@ REM Script permettant la copie et le renommage des fichiers facilement.
 REM Nécessite le logiciel "advanced renamer"
 
 REM #####################################
-REM INCREMENTER CE NUMERO A CHAQUE FOIS !
 
-SET numero=001
+SET jour=Samedi
+
+SET heure=1858
+SET nom=GD
 
 
 REM #####################################
@@ -19,13 +21,13 @@ REM #####################################
 REM #####################################
 REM test pour être sur que l'on a incrémenté, sinon bye
 
-IF EXIST %disk_derush%\%numero% GOTO :oef
+IF EXIST %disk_derush%\%jour%\%nom%\%heure% GOTO :oef
 
 
 REM création des dossiers nécessaires correspondants au numéro du dessus
 
-mkdir %disk_derush%\%numero%
-SET destination=%disk_derush%\%numero%
+mkdir %disk_derush%\%jour%\%nom%\%heure%
+SET destination=%disk_derush%\%jour%\%nom%\%heure%
 mkdir %destination%\old
 
 
@@ -45,7 +47,9 @@ for /R %destination% %%f in (*.wav) do move %%f %destination%
 for /R %destination% %%f in (*.raf) do move %%f %destination%
 for /R %destination% %%f in (*.jpg) do move %%f %destination%
 for /R %destination% %%f in (*.rw2) do move %%f %destination%
+for /R %destination% %%f in (*.mxf) do move %%f %destination%
 
+ECHO %destination%
 REM on supprime tout le reste
 
 rmdir /S /Q %destination%\old
@@ -53,7 +57,7 @@ rmdir /S /Q %destination%\old
 
 REM Copie de sauvegarde avec les noms originaux
 
-robocopy %destination% %disk_backup%\%numero% * /S
+robocopy %destination% %disk_backup%\%jour%\%nom%\%heure% * /S
 
 
 REM Renommage des fichiers selon le nom du dossier parent
@@ -62,8 +66,8 @@ REM Utilisation du logiciel Advanced Renamer
 SET PATH=%PATH%;C:\Program Files (x86)\Advanced Renamer
 arenc -e "C:\Program Files (x86)\Advanced Renamer\BatchMethods\if_rename.aren" -p %destination%
 
-mkdir %disk_derush%\%numero%\rushs_selectionnes
-mkdir %disk_derush%\%numero%\rushs_poubelle
+REM mkdir %disk_derush%\%jour%\%nom%\%heure%\rushs_selectionnes
+REM mkdir %disk_derush%\%jour%\%nom%\%heure%\rushs_poubelle
 
 
 REM fin !
